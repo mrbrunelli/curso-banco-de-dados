@@ -11,6 +11,8 @@ armazenar os telefones dos clientes, mas não quer que eles sejam obrigatórios.
 
 create database projeto;
 
+use projeto;
+
 create table carro(
     id int primary key auto_increment,
     modelo varchar(30) not null,
