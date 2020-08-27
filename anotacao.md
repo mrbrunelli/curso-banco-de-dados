@@ -197,3 +197,27 @@ CREATE TABLE carro_cor(
     PRIMARY KEY(cor_id, carro_id)
 );
 ```
+
+## Trigger
+> Trigger é um gatinho que fica ouvindo um evento
+```sql
+DELIMITER $
+
+CREATE TRIGGER NOME
+BEFORE/AFTER INSERT/UPDATE/DELETE ON TABELA
+FOR EACH ROW (PARA CADA LINHA)
+BEGIN -> INICIO
+    COMANDO SQL;
+END -> FIM
+
+DELIMITER ;
+```
+> Encontrar as Triggers
+```sql
+USE information_schema;
+DESC TRIGGERS;
+SELECT 
+    TRIGGER_SCHEMA,
+    TRIGGER_NAME
+FROM TRIGGERS;
+```
