@@ -221,3 +221,30 @@ SELECT
     TRIGGER_NAME
 FROM TRIGGERS;
 ```
+
+## Autorelacionamentos
+> É quando uma tabela se relaciona com ela mesma
+```sql
+CREATE TABLE curso(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(30),
+    horas INT,
+    valor FLOAT(10,2),
+    prereq_id INT
+);
+
+ALTER TABLE curso
+add CONSTRAINT fk_prereq
+FOREIGN KEY(prereq_id)
+REFERENCES curso(id);
+```
+> Para consultar eu aponto a própria tabela como JOIN
+```sql
+SELECT
+    c.nome,
+    c.valor,
+    c.horas,
+    IFNULL(p.nome, 'SEM PRE-REQUISITOS') AS curso_requisito
+FROM curso c
+LEFT JOIN curso p ON p.id = c.prereq_id;
+```
