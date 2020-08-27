@@ -16,22 +16,24 @@ use oficina;
 create table carro(
     id int primary key auto_increment,
     modelo varchar(30) not null,
+    placa varchar(7) not null unique,
     marca_id int
 );
 
 create table marca(
     id int primary key auto_increment,
-    nome varchar(30) not null
+    nome varchar(30) not null unique
 );
 
 create table cor(
     id int primary key auto_increment,
-    nome varchar(20) not null
+    nome varchar(20) not null unique
 );
 
-create table cor_carro(
+create table carro_cor(
     cor_id int,
-    carro_id int
+    carro_id int,
+    primary key(cor_id, carro_id)
 );
 
 create table cliente(
@@ -47,42 +49,49 @@ create table telefone(
     cliente_id int
 );
 
+/* Constraints */
+
 alter table carro
-add constraint fk_marca_carro
-foreign key(marca_id) references marca(id);
+add constraint fk_carro_marca
+foreign key(marca_id) 
+references marca(id);
 
-alter table cor_carro
-add constraint fk_cor_cor_carro
-foreign key(cor_id) references cor(id);
+alter table carro_cor
+add constraint fk_cor
+foreign key(cor_id) 
+references cor(id);
 
-alter table cor_carro
-add constraint fk_carro_cor_carro
-foreign key(carro_id) references carro(id);
+alter table carro_cor
+add constraint fk_carro
+foreign key(carro_id) 
+references carro(id);
 
 alter table cliente
-add constraint fk_carro_cliente
-foreign key(carro_id) references carro(id);
+add constraint fk_cliente_carro
+foreign key(carro_id) 
+references carro(id);
 
 alter table telefone
-add constraint fk_cliente_telefone
-foreign key(cliente_id) references cliente(id);
+add constraint fk_telefone_cliente
+foreign key(cliente_id) 
+references cliente(id);
 
 insert into marca values(null,'FORD');
 insert into marca values(null,'CHEVROLET');
 insert into marca values(null,'FIAT');
 
-insert into carro values(null,'ESCORT 1.6',1);
-insert into carro values(null,'OPALA 4.0',2);
-insert into carro values(null,'UNO 1.0',3);
+insert into carro values(null,'ESCORT 1.6','ABA2A18',1);
+insert into carro values(null,'OPALA 4.0','CAA2A29',2);
+insert into carro values(null,'UNO 1.0','AKK2A10',3);
 
 insert into cor values(null,'PRETO');
 insert into cor values(null,'VERMELHO');
 insert into cor values(null,'PRATA');
 
-insert into cor_carro values(1,1);
-insert into cor_carro values(3,1);
-insert into cor_carro values(2,2);
-insert into cor_carro values(3,3);
+insert into carro_cor values(1,1);
+insert into carro_cor values(3,1);
+insert into carro_cor values(2,2);
+insert into carro_cor values(3,3);
 
 insert into cliente values(null,'MATHEUS R BRUNELLI',2);
 insert into cliente values(null,'DAYSA DE MORAIS DOS SANTOS',3);
@@ -110,7 +119,7 @@ select
     c.nome as cor,
     cl.nome as cliente,
     t.numero as telefone
-from cor_carro cc
+from carro_cor cc
 inner join carro cr on cr.id = cc.carro_id
 inner join cor c on c.id = cc.cor_id
 inner join marca m on m.id = cr.marca_id
