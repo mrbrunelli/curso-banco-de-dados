@@ -9,9 +9,9 @@ idéia de qual tinta comprar, e informa que um carro pode ter mais de uma cor. S
 armazenar os telefones dos clientes, mas não quer que eles sejam obrigatórios. 
 */
 
-create database projeto;
+create database oficina;
 
-use projeto;
+use oficina;
 
 create table carro(
     id int primary key auto_increment,
