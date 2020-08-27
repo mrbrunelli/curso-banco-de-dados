@@ -187,3 +187,13 @@ SELECT
 FROM TABLE_CONSTRAINTS
 WHERE CONSTRAINT_SCHEMA = 'comercio';
 ```
+
+## Tabela associativa
+> A tabela associativa deve ter uma chave primária composta
+```sql
+CREATE TABLE carro_cor(
+    cor_id INT,
+    carro_id INT,
+    PRIMARY KEY(cor_id, carro_id)
+);
+```
