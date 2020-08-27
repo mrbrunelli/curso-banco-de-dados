@@ -58,5 +58,29 @@ select * from produto;
 
 select * from backup.bkp_produto;
 
-/* Dropar Trigger */
-drop trigger backup_produto;
+/* Melhorar estrutura da tabela backup.bkp_produto */
+drop trigger backup_produto_insert;
+drop trigger backup_produto_delete;
+
+alter table backup.bkp_produto
+add evento char(1);
+
+delimiter $
+create trigger backup_produto_insert
+after insert on produto
+for each row
+begin
+    insert into backup.bkp_produto values(null, new.id, new.nome, new.valor,'I');
+end
+$
+delimiter ;
+
+delimiter $
+create trigger backup_produto_delete
+before delete on produto
+for each row
+begin
+    insert into backup.bkp_produto values(null, old.id, old.nome, old.valor,'D');
+end
+$
+delimiter ;
