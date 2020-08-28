@@ -248,3 +248,36 @@ SELECT
 FROM curso c
 LEFT JOIN curso p ON p.id = c.prereq_id;
 ```
+
+## Cursores
+> Utiliza da programação para desafogar o banco de dados de Querys com cálculos complexos
+```sql
+DELIMITER $
+CREATE PROCEDURE inseredados()
+BEGIN
+    DECLARE fim INT DEFAULT 0;
+    DECLARE var1, var2, var3, vtotal, vmedia INT;
+    DECLARE vnome VARCHAR(50);
+
+    DECLARE reg CURSOR FOR(
+        SELECT nome, jan, fev, mar FROM vendedores
+    );
+
+    DECLARE continue HANDLER FOR NOT FOUND SET fim = 1;
+
+    OPEN reg;
+
+    REPEAT
+        FETCH reg INTO vnome, var1, var2, var3;
+        IF NOT fim THEN
+            SET vtotal = var1 + var2 + var3;
+            SET vmedia = vtotal / 3;
+            INSERT INTO vend_total VALUES(vnome, var1, var2, var3, vtotal, vmedia);
+        END IF;
+    UNTIL FIM END REPEAT;
+
+    CLOSE reg;
+END
+$
+DELIMITER ;
+```
