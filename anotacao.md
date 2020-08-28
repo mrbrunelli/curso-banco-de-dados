@@ -16,16 +16,22 @@
 ## Primeira forma normal
 1. Todo campo vetorizado se tornará outra tabela
 > Ex: ['9981-4499', '9109-1201', '9831-4806'] -> Telefone
-
-## Segunda forma normal
-1. Todo campo multivalorado se tornará outra tabela
+2. Todo campo multivalorado se tornará outra tabela
 > Ex: ['Rua Maria Paulone', 'Douradina', 'Paraná', 'Brasil'] -> Endereço
 > Nesse caso não é um vetor, pois cada informação remete à uma tabela diferente.
-> Veja que Rua, Cidade, Estado e País não são da mesma família. 
+> Veja que Rua, Cidade, Estado e País não são da mesma família.
+3. Toda tabela necessita de pelo menos um campo que identifique todo o registro como sendo único
+> Ex: id, cod (PK Chave Primária)
+
+## Segunda forma normal
+1. Em uma tabela associativa, um campo não chave deve depender da Totalidade das chaves
+> Ex: Supondo que temos uma tabela associativa Consulta, e na Consulta temos o id do paciente, id do mécido, id do hospital e um campo de data. Esse campo de data deve depender dessas outras 3 chaves. Se não existir as 3 chaves, então não há consulta.
+2. Caso a consulta possa se repetir, com o mesmo médico, mesmo hospital e mesmo paciente, a tabela deverá ter uma Chave Primária (PK)
 
 ## Terceira forma normal
-1. Toda tabela necessita de pelo menos um campo que identifique todo o registro como sendo único
-> Ex: id, cod
+1. Dependência transitiva
+2. Campos não chaves que dependem de outros campos não chaves, devem se tornar outra tabela
+> Ex: Supondo que temos a mesma tabela Consulta, com id do paciente, id do medico e id do hospital, e mais outros dois campos Diagnostico e Internacao. O campo Internação depende do Diagnóstico, pois nem todos Diagnósticos levam a Internação. Logo o campo Internação deve se tornar outra tabela.
 
 ## Relacionamento
 1. 1 X 1 Chave estrangeira ficará sempre na tabela mais fraca
