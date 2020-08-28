@@ -25,6 +25,6 @@ select
     c.nome,
     c.valor,
     c.horas,
-    ifnull(p.nome, 'SEM PRE-REQUISITOS') as curso_requisito
+    ifnull(p.nome, 'SEM PRE-REQUISITOS') as requisito
 from curso c
 left join curso p on p.id = c.prereq_id;

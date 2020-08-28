@@ -238,7 +238,7 @@ add CONSTRAINT fk_prereq
 FOREIGN KEY(prereq_id)
 REFERENCES curso(id);
 ```
-> Para consultar eu aponto a própria tabela como JOIN
+> Para consultar eu aponto a própria tabela com o JOIN
 ```sql
 SELECT
     c.nome,
