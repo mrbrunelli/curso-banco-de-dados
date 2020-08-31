@@ -12,3 +12,16 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_DATABASE=curso
+    mssql:
+        image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu 
+        container_name: mssql
+        restart: always
+        ports:
+         - "1433:1433"
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_PID=Express
+            - SA_PASSWORD=SenhaPoderosa!
+
+        # Acessar o mssql dentro do container
+        # /opt/mssql-tools/bin/sqlcmd -S localhost -U SA
